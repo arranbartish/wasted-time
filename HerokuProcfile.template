@@ -1,0 +1,2 @@
+web: java -Dserver.port=$PORT -jar  wasted-app/target/wasted-app-[VERSION].jar
+
