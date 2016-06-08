@@ -9,21 +9,25 @@ import com.solvedbysunrise.wastedtime.dto.serialization.DateTimeDeserializer;
 import com.solvedbysunrise.wastedtime.dto.serialization.DateTimeSerializer;
 import com.solvedbysunrise.wastedtime.dto.serialization.DurationDeserializer;
 import com.solvedbysunrise.wastedtime.dto.serialization.DurationSerializer;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
 public class WastedTime extends RefelctiveBean {
 
+    @NotEmpty
     private final String who;
 
     @JsonDeserialize(using = DurationDeserializer.class)
     @JsonSerialize(using = DurationSerializer.class)
     private final Duration duration;
 
+    @NotEmpty
     private final String activity;
 
     @JsonDeserialize(using = DateTimeDeserializer.class)
     @JsonSerialize(using = DateTimeSerializer.class)
+    @NotEmpty
     private final DateTime date;
 
     @JsonCreator

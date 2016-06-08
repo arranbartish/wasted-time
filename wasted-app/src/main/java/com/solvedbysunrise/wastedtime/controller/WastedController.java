@@ -28,7 +28,7 @@ public class WastedController {
     }
 
     @RequestMapping(method = POST)
-    public Collection<WastedTime> wastedTime(@RequestBody @Valid WastedTime wastedTime) {
+    public Collection<WastedTime> wastedTime(@Valid @RequestBody WastedTime wastedTime) {
         return wastedTimeService.recordWastedTime(wastedTime);
     }
 
