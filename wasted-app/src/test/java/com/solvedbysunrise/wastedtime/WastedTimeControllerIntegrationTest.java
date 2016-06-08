@@ -88,6 +88,25 @@ public class WastedTimeControllerIntegrationTest {
         restTemplate.exchange(postRequestForWastedTime(wastedToFail), String.class);
     }
 
+    @Test(expected = HttpClientErrorException.class)
+    public void wasted_time_will_fail_validation_when_date_is_null() throws Exception {
+        WastedTime wastedToFail = new WastedTime(WASTED.getWho(), WASTED.getDuration(), WASTED.getActivity(), null);
+        restTemplate.exchange(postRequestForWastedTime(wastedToFail), String.class);
+    }
+
+    @Test(expected = HttpClientErrorException.class)
+    public void wasted_time_will_fail_validation_when_duration_is_null() throws Exception {
+        WastedTime wastedToFail = new WastedTime(WASTED.getWho(), null, WASTED.getActivity(), WASTED.getDate());
+        restTemplate.exchange(postRequestForWastedTime(wastedToFail), String.class);
+    }
+
+    @Test(expected = HttpClientErrorException.class)
+    public void wasted_time_will_fail_validation_when_activity_is_blank() throws Exception {
+        WastedTime wastedToFail = new WastedTime(WASTED.getWho(), WASTED.getDuration(), "", WASTED.getDate());
+        restTemplate.exchange(postRequestForWastedTime(wastedToFail), String.class);
+    }
+
+
     @Test
     public void wasted_time_will_be_ok_on_get() throws Exception {
         ResponseEntity<WastedTime[]> exchange = restTemplate.exchange(getRequestForWastedTime(), WastedTime[].class);

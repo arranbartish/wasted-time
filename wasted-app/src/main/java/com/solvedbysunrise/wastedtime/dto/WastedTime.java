@@ -13,6 +13,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
+import javax.validation.constraints.NotNull;
+
 public class WastedTime extends RefelctiveBean {
 
     @NotEmpty
@@ -20,6 +22,7 @@ public class WastedTime extends RefelctiveBean {
 
     @JsonDeserialize(using = DurationDeserializer.class)
     @JsonSerialize(using = DurationSerializer.class)
+    @NotNull
     private final Duration duration;
 
     @NotEmpty
@@ -27,6 +30,7 @@ public class WastedTime extends RefelctiveBean {
 
     @JsonDeserialize(using = DateTimeDeserializer.class)
     @JsonSerialize(using = DateTimeSerializer.class)
+    @NotNull
     private final DateTime date;
 
     @JsonCreator
@@ -37,7 +41,7 @@ public class WastedTime extends RefelctiveBean {
         this.who = who;
         this.duration = duration;
         this.activity = activity;
-        this.date = new DateTime(date).withTimeAtStartOfDay();
+        this.date = (date == null) ? null : new DateTime(date).withTimeAtStartOfDay();
     }
 
     public String getWho() {
