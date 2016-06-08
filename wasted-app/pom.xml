@@ -41,10 +41,6 @@
 		</dependency>
         <dependency>
             <groupId>com.solvedbysunrise.wastedtime</groupId>
-            <artifactId>wastedtime-domain</artifactId>
-		</dependency>
-        <dependency>
-            <groupId>com.solvedbysunrise.wastedtime</groupId>
             <artifactId>wastedtime-interfaces</artifactId>
 		</dependency>
         <dependency>

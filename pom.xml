@@ -21,7 +21,6 @@
         <module>parent</module>
         <module>interfaces</module>
         <module>utils</module>
-        <module>domain</module>
         <module>wasted-app</module>
     </modules>
 

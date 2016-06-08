@@ -27,7 +27,6 @@ public class WastedTime extends RefelctiveBean {
 
     @JsonDeserialize(using = DateTimeDeserializer.class)
     @JsonSerialize(using = DateTimeSerializer.class)
-    @NotEmpty
     private final DateTime date;
 
     @JsonCreator
