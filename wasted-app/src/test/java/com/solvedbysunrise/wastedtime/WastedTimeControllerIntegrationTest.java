@@ -1,17 +1,19 @@
 package com.solvedbysunrise.wastedtime;
 
 import com.solvedbysunrise.wastedtime.config.TestConfiguration;
+import com.solvedbysunrise.wastedtime.dao.WastedTimeDao;
 import com.solvedbysunrise.wastedtime.dto.WastedTime;
+import com.solvedbysunrise.wastedtime.service.WastedTimeService;
 import org.joda.time.DateTime;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,9 +25,13 @@ import java.net.URI;
 import static com.solvedbysunrise.wastedtime.util.UriUtil.getFullyQualifiedUriPattern;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.arrayContaining;
+import static org.hamcrest.Matchers.hasItemInArray;
 import static org.joda.time.DateTime.now;
 import static org.joda.time.Duration.standardMinutes;
 import static org.junit.Assert.assertThat;
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 
 @Rollback
 @Transactional
@@ -33,6 +39,8 @@ import static org.junit.Assert.assertThat;
 @SpringApplicationConfiguration(classes = {WastedtimeApplication.class, TestConfiguration.class})
 @WebIntegrationTest
 public class WastedTimeControllerIntegrationTest {
+
+    private static final WastedTime WASTED = new WastedTime("Arran", standardMinutes(30), "Tracking time", now());
 
     private static final String WASTED_RESOURCE = "wasted";
 
@@ -42,33 +50,60 @@ public class WastedTimeControllerIntegrationTest {
     @Autowired
     private String wastedTimeBaseUrl;
 
+    @Autowired
+    private WastedTimeService wastedTimeService;
+
+    @Autowired
+    private WastedTimeDao wastedTimeDao;
+
+    private URI wastedUri;
+
+    @Before
+    public void setup(){
+        wastedUri = new UriTemplate(getFullyQualifiedUriPattern(wastedTimeBaseUrl, WASTED_RESOURCE)).expand();
+    }
 
     @Test
     public void wasted_time_will_be_ok_with_payload() throws Exception {
-        final URI wastedUri = new UriTemplate(getFullyQualifiedUriPattern(wastedTimeBaseUrl, WASTED_RESOURCE)).expand();
-        final WastedTime wasted = new WastedTime("Arran", standardMinutes(30), "Tracking time", now());
-        final RequestEntity<WastedTime> entity = new RequestEntity<>(wasted, HttpMethod.POST, wastedUri);
-
-        ResponseEntity<String> exchange = restTemplate.exchange(entity, String.class);
+        ResponseEntity<WastedTime[]> exchange = restTemplate.exchange(postRequestForWastedTime(), WastedTime[].class);
         assertThat(exchange.getStatusCode(), is(HttpStatus.OK));
     }
 
     @Test
     public void wasted_time_will_return_collection_including_item_when_posted_with_item() throws Exception {
-        final URI wastedUri = new UriTemplate(getFullyQualifiedUriPattern(wastedTimeBaseUrl, WASTED_RESOURCE)).expand();
-        final WastedTime wasted = new WastedTime("Arran", standardMinutes(30), "Tracking time", now());
-
-        ResponseEntity<WastedTime[]> wastedTimeResponseEntity = restTemplate.postForEntity(wastedUri, wasted, WastedTime[].class);
-        WastedTime[] wastedTime = wastedTimeResponseEntity.getBody();
-        assertThat(wastedTime, arrayContaining(wasted));
+        ResponseEntity<WastedTime[]> wastedTimeResponseEntity = restTemplate.exchange(postRequestForWastedTime(), WastedTime[].class);
+        assertThat(wastedTimeResponseEntity.getBody(), arrayContaining(WASTED));
     }
 
     @Test
     public void wasted_time_will_be_ok_on_get() throws Exception {
-        final URI wastedUri = new UriTemplate(getFullyQualifiedUriPattern(wastedTimeBaseUrl, WASTED_RESOURCE)).expand();
-
-        ResponseEntity<WastedTime[]> exchange = restTemplate.getForEntity(wastedUri, WastedTime[].class);
+        ResponseEntity<WastedTime[]> exchange = restTemplate.exchange(getRequestForWastedTime(), WastedTime[].class);
         assertThat(exchange.getStatusCode(), is(HttpStatus.OK));
     }
 
+
+    @Test
+    public void wasted_time_will_return_wasted_items_on_get() throws Exception {
+        wastedTimeService.recordWastedTime(WASTED);
+
+        ResponseEntity<WastedTime[]> exchange = restTemplate.exchange(getRequestForWastedTime(), WastedTime[].class);
+        assertThat(exchange.getBody(), hasItemInArray(WASTED));
+    }
+
+    private RequestEntity<WastedTime> getRequestForWastedTime() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(APPLICATION_JSON_UTF8);
+        return new RequestEntity<>(headers, GET, wastedUri);
+    }
+
+    private RequestEntity<WastedTime> postRequestForWastedTime() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(APPLICATION_JSON_UTF8);
+        return new RequestEntity<>(WASTED, headers, POST, wastedUri);
+    }
+
+    @After
+    public void deleteAll(){
+        wastedTimeDao.deleteAll();
+    }
 }

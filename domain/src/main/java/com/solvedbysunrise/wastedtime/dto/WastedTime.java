@@ -13,6 +13,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
 public class WastedTime extends RefelctiveBean {
+
     private final String who;
 
     @JsonDeserialize(using = DurationDeserializer.class)
@@ -50,5 +51,20 @@ public class WastedTime extends RefelctiveBean {
 
     public DateTime getDate() {
         return date;
+    }
+
+    @Override
+    public boolean equals(Object that) {
+        return super.equals(that) && internalEquals((WastedTime) that);
+    }
+
+    private boolean internalEquals(WastedTime that) {
+        return that.getDate().isEqual(this.getDate())
+                && that.getDuration().isEqual(this.getDuration());
+    }
+
+    @Override
+    public String[] excludedFields() {
+        return new String[] { "date", "duration" };
     }
 }

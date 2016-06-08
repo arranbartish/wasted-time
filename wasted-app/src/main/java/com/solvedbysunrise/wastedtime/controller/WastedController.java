@@ -1,23 +1,39 @@
 package com.solvedbysunrise.wastedtime.controller;
 
 import com.solvedbysunrise.wastedtime.dto.WastedTime;
-import org.springframework.web.bind.annotation.*;
+import com.solvedbysunrise.wastedtime.service.WastedTimeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.Collection;
 
-import static com.google.common.collect.Lists.newArrayList;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
+@RequestMapping(value = "/wasted",
+        consumes = APPLICATION_JSON_UTF8_VALUE,
+        produces = APPLICATION_JSON_UTF8_VALUE)
 public class WastedController {
 
-    @RequestMapping(method = RequestMethod.POST, name = "/wasted")
-    public Collection<WastedTime> wastedTime(@RequestBody @Valid WastedTime wastedTime) {
-        return newArrayList(wastedTime);
+    private final WastedTimeService wastedTimeService;
+
+    @Autowired
+    public WastedController(final WastedTimeService wastedTimeService) {
+        this.wastedTimeService = wastedTimeService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, name = "/wasted")
+    @RequestMapping(method = POST)
+    public Collection<WastedTime> wastedTime(@RequestBody @Valid WastedTime wastedTime) {
+        return wastedTimeService.recordWastedTime(wastedTime);
+    }
+
+    @RequestMapping(method = GET)
     public Collection<WastedTime> wastedTime() {
-        return newArrayList(new WastedTime(null, null, null, null));
+        return wastedTimeService.getAllWastedTime();
     }
 }
