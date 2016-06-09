@@ -6,6 +6,7 @@ import com.solvedbysunrise.wastedtime.dto.WastedTime;
 import com.solvedbysunrise.wastedtime.service.WastedTimeService;
 import org.hamcrest.CoreMatchers;
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -99,6 +100,13 @@ public class WastedTimeControllerIntegrationTest {
         WastedTime wastedToFail = new WastedTime(WASTED.getWho(), null, WASTED.getActivity(), WASTED.getDate());
         restTemplate.exchange(postRequestForWastedTime(wastedToFail), String.class);
     }
+
+    @Test(expected = HttpClientErrorException.class)
+    public void wasted_time_will_fail_validation_when_duration_is_strange_time_slice() throws Exception {
+        WastedTime wastedToFail = new WastedTime(WASTED.getWho(), Duration.standardMinutes(6), WASTED.getActivity(), WASTED.getDate());
+        restTemplate.exchange(postRequestForWastedTime(wastedToFail), String.class);
+    }
+
 
     @Test(expected = HttpClientErrorException.class)
     public void wasted_time_will_fail_validation_when_activity_is_blank() throws Exception {

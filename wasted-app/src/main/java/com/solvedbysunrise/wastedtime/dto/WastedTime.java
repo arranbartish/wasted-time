@@ -9,6 +9,7 @@ import com.solvedbysunrise.wastedtime.dto.serialization.DateTimeDeserializer;
 import com.solvedbysunrise.wastedtime.dto.serialization.DateTimeSerializer;
 import com.solvedbysunrise.wastedtime.dto.serialization.DurationDeserializer;
 import com.solvedbysunrise.wastedtime.dto.serialization.DurationSerializer;
+import com.solvedbysunrise.wastedtime.dto.validation.CorrectTimeSlice;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
@@ -23,6 +24,7 @@ public class WastedTime extends RefelctiveBean {
     @JsonDeserialize(using = DurationDeserializer.class)
     @JsonSerialize(using = DurationSerializer.class)
     @NotNull
+    @CorrectTimeSlice
     private final Duration duration;
 
     @NotEmpty
@@ -66,7 +68,9 @@ public class WastedTime extends RefelctiveBean {
     }
 
     private boolean internalEquals(WastedTime that) {
-        return that.getDate().isEqual(this.getDate())
+        return (that.getDate() != null && this.getDate() != null)
+                && that.getDate().isEqual(this.getDate())
+                && (that.getDuration() != null && this.getDuration() != null)
                 && that.getDuration().isEqual(this.getDuration());
     }
 

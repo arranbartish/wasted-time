@@ -31,8 +31,9 @@ public class WastedtimeApplication {
     }
 
     @Bean
-    public Validator localValidatorFactoryBean() {
+    public Validator validator() {
         return new LocalValidatorFactoryBean();
     }
+
 
 }
