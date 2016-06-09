@@ -1,4 +1,4 @@
-package com.solvedbysunrise.wastedtime.dto;
+package com.solvedbysunrise.wastedtime.data.dto;
 
 import org.joda.time.DateTime;
 import org.joda.time.Duration;

@@ -1,6 +1,6 @@
-package com.solvedbysunrise.wastedtime.validator;
+package com.solvedbysunrise.wastedtime.service.validator;
 
-import com.solvedbysunrise.wastedtime.dto.TimeSlice;
+import com.solvedbysunrise.wastedtime.data.dto.TimeSlice;
 import com.solvedbysunrise.wastedtime.service.TimeSliceService;
 import org.joda.time.Duration;
 import org.junit.Before;

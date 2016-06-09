@@ -1,12 +1,11 @@
 package com.solvedbysunrise.wastedtime.service;
 
 import com.google.common.collect.Lists;
-import com.solvedbysunrise.wastedtime.dao.WastedTimeDao;
-import com.solvedbysunrise.wastedtime.dto.WastedTime;
-import com.solvedbysunrise.wastedtime.entity.jpa.WastedTimeEvent;
-import com.solvedbysunrise.wastedtime.factory.BeanCopyWastedTimeFactory;
-import com.solvedbysunrise.wastedtime.factory.WastedTimeFactory;
-import org.hamcrest.Matchers;
+import com.solvedbysunrise.wastedtime.data.dao.WastedTimeDao;
+import com.solvedbysunrise.wastedtime.data.dto.WastedTime;
+import com.solvedbysunrise.wastedtime.data.jpa.WastedTimeEvent;
+import com.solvedbysunrise.wastedtime.data.factory.BeanCopyWastedTimeFactory;
+import com.solvedbysunrise.wastedtime.data.factory.WastedTimeFactory;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.junit.Before;
@@ -14,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Collection;

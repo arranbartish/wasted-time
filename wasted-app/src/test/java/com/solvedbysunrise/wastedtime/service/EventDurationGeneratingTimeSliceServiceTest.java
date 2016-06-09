@@ -1,6 +1,6 @@
 package com.solvedbysunrise.wastedtime.service;
 
-import com.solvedbysunrise.wastedtime.dto.TimeSlice;
+import com.solvedbysunrise.wastedtime.data.dto.TimeSlice;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 

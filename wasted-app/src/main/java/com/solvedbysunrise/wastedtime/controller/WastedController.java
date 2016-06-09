@@ -1,6 +1,6 @@
 package com.solvedbysunrise.wastedtime.controller;
 
-import com.solvedbysunrise.wastedtime.dto.WastedTime;
+import com.solvedbysunrise.wastedtime.data.dto.WastedTime;
 import com.solvedbysunrise.wastedtime.service.WastedTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

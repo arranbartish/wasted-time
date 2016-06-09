@@ -1,4 +1,4 @@
-package com.solvedbysunrise.wastedtime.dto;
+package com.solvedbysunrise.wastedtime.data.dto;
 
 import com.solvedbysunrise.bean.RefelctiveBean;
 

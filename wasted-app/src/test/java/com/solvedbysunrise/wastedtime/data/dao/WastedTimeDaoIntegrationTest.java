@@ -1,8 +1,8 @@
-package com.solvedbysunrise.wastedtime.dao;
+package com.solvedbysunrise.wastedtime.data.dao;
 
 import com.solvedbysunrise.wastedtime.WastedtimeApplication;
 import com.solvedbysunrise.wastedtime.config.TestConfiguration;
-import com.solvedbysunrise.wastedtime.entity.jpa.WastedTimeEvent;
+import com.solvedbysunrise.wastedtime.data.jpa.WastedTimeEvent;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.junit.Before;

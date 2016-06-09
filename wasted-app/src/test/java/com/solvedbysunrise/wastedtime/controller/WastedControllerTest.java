@@ -1,9 +1,8 @@
 package com.solvedbysunrise.wastedtime.controller;
 
 import com.google.common.collect.Lists;
-import com.solvedbysunrise.wastedtime.dto.WastedTime;
+import com.solvedbysunrise.wastedtime.data.dto.WastedTime;
 import com.solvedbysunrise.wastedtime.service.WastedTimeService;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -12,7 +11,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Collection;
 
-import static com.sun.org.apache.xerces.internal.util.PropertyState.is;
 import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;

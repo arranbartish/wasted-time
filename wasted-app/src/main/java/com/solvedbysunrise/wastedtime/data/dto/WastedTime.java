@@ -1,15 +1,15 @@
-package com.solvedbysunrise.wastedtime.dto;
+package com.solvedbysunrise.wastedtime.data.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.solvedbysunrise.bean.RefelctiveBean;
-import com.solvedbysunrise.wastedtime.dto.serialization.DateTimeDeserializer;
-import com.solvedbysunrise.wastedtime.dto.serialization.DateTimeSerializer;
-import com.solvedbysunrise.wastedtime.dto.serialization.DurationDeserializer;
-import com.solvedbysunrise.wastedtime.dto.serialization.DurationSerializer;
-import com.solvedbysunrise.wastedtime.dto.validation.CorrectTimeSlice;
+import com.solvedbysunrise.wastedtime.data.dto.serialization.DateTimeDeserializer;
+import com.solvedbysunrise.wastedtime.data.dto.serialization.DateTimeSerializer;
+import com.solvedbysunrise.wastedtime.data.dto.serialization.DurationDeserializer;
+import com.solvedbysunrise.wastedtime.data.dto.serialization.DurationSerializer;
+import com.solvedbysunrise.wastedtime.data.dto.validation.CorrectTimeSlice;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;

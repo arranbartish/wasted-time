@@ -1,6 +1,6 @@
 package com.solvedbysunrise.wastedtime.controller;
 
-import com.solvedbysunrise.wastedtime.dto.Hello;
+import com.solvedbysunrise.wastedtime.data.dto.Hello;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

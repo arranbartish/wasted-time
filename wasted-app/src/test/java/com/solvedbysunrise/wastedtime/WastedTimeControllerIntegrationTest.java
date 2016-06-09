@@ -1,19 +1,15 @@
 package com.solvedbysunrise.wastedtime;
 
 import com.solvedbysunrise.wastedtime.config.TestConfiguration;
-import com.solvedbysunrise.wastedtime.dao.WastedTimeDao;
-import com.solvedbysunrise.wastedtime.dto.WastedTime;
+import com.solvedbysunrise.wastedtime.data.dao.WastedTimeDao;
+import com.solvedbysunrise.wastedtime.data.dto.WastedTime;
 import com.solvedbysunrise.wastedtime.service.WastedTimeService;
-import org.hamcrest.CoreMatchers;
-import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.http.*;

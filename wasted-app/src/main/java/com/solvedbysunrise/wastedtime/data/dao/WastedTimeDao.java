@@ -1,6 +1,6 @@
-package com.solvedbysunrise.wastedtime.dao;
+package com.solvedbysunrise.wastedtime.data.dao;
 
-import com.solvedbysunrise.wastedtime.entity.jpa.WastedTimeEvent;
+import com.solvedbysunrise.wastedtime.data.jpa.WastedTimeEvent;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 

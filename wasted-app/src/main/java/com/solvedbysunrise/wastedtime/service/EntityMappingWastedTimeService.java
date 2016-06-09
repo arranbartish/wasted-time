@@ -1,9 +1,9 @@
 package com.solvedbysunrise.wastedtime.service;
 
-import com.solvedbysunrise.wastedtime.dao.WastedTimeDao;
-import com.solvedbysunrise.wastedtime.dto.WastedTime;
-import com.solvedbysunrise.wastedtime.entity.jpa.WastedTimeEvent;
-import com.solvedbysunrise.wastedtime.factory.WastedTimeFactory;
+import com.solvedbysunrise.wastedtime.data.dao.WastedTimeDao;
+import com.solvedbysunrise.wastedtime.data.dto.WastedTime;
+import com.solvedbysunrise.wastedtime.data.jpa.WastedTimeEvent;
+import com.solvedbysunrise.wastedtime.data.factory.WastedTimeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

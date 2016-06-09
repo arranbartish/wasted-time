@@ -1,6 +1,6 @@
 package com.solvedbysunrise.wastedtime.service;
 
-import com.solvedbysunrise.wastedtime.dto.TimeSlice;
+import com.solvedbysunrise.wastedtime.data.dto.TimeSlice;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;

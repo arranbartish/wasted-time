@@ -1,6 +1,6 @@
-package com.solvedbysunrise.wastedtime.validator;
+package com.solvedbysunrise.wastedtime.service.validator;
 
-import com.solvedbysunrise.wastedtime.dto.validation.CorrectTimeSlice;
+import com.solvedbysunrise.wastedtime.data.dto.validation.CorrectTimeSlice;
 import com.solvedbysunrise.wastedtime.service.TimeSliceService;
 import org.joda.time.Duration;
 import org.springframework.beans.factory.annotation.Autowired;

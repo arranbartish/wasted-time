@@ -1,10 +1,9 @@
-package com.solvedbysunrise.wastedtime.dto.validation;
+package com.solvedbysunrise.wastedtime.data.dto.validation;
 
-import com.solvedbysunrise.wastedtime.validator.TimeSliceValidator;
+import com.solvedbysunrise.wastedtime.service.validator.TimeSliceValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import javax.validation.constraints.NotNull;
 import java.lang.annotation.*;
 
 import static java.lang.annotation.ElementType.*;
@@ -16,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy=TimeSliceValidator.class)
 public @interface CorrectTimeSlice {
 
-    String message() default "{com.solvedbysunrise.wastedtime.dto.validation.constraints.CorrectTimeSlice.message}";
+    String message() default "{com.solvedbysunrise.wastedtime.data.dto.validation.constraints.CorrectTimeSlice.message}";
 
     Class<?>[] groups() default { };
 
