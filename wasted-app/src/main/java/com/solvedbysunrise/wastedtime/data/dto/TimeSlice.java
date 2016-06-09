@@ -1,14 +1,24 @@
 package com.solvedbysunrise.wastedtime.data.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.solvedbysunrise.bean.RefelctiveBean;
+import com.solvedbysunrise.wastedtime.data.dto.serialization.DurationDeserializer;
+import com.solvedbysunrise.wastedtime.data.dto.serialization.DurationSerializer;
 import org.joda.time.Duration;
 
 public class TimeSlice extends RefelctiveBean {
 
+    @JsonDeserialize(using = DurationDeserializer.class)
+    @JsonSerialize(using = DurationSerializer.class)
     private final Duration slice;
+
     private final String display;
 
-    public TimeSlice(Duration slice, String display) {
+    @JsonCreator
+    public TimeSlice(@JsonProperty("slice") Duration slice, @JsonProperty("display") String display) {
         this.slice = slice;
         this.display = display;
     }

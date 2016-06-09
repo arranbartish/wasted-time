@@ -36,8 +36,6 @@ import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 
-@Rollback
-@Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {WastedtimeApplication.class, TestConfiguration.class})
 @WebIntegrationTest
@@ -123,7 +121,7 @@ public class WastedTimeControllerIntegrationTest {
         wastedTimeService.recordWastedTime(WASTED);
 
         ResponseEntity<WastedTime[]> exchange = restTemplate.exchange(getRequestForWastedTime(), WastedTime[].class);
-        assertThat(exchange.getBody(), hasItemInArray(WASTED));
+        assertThat(exchange.getBody(), arrayContaining(WASTED));
     }
 
     private RequestEntity<WastedTime> getRequestForWastedTime() {
