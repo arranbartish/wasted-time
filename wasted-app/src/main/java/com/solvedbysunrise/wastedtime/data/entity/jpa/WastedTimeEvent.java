@@ -1,4 +1,4 @@
-package com.solvedbysunrise.wastedtime.data.jpa;
+package com.solvedbysunrise.wastedtime.data.entity.jpa;
 
 import com.solvedbysunrise.bean.RefelctiveBean;
 

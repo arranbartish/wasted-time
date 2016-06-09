@@ -1,7 +1,7 @@
 package com.solvedbysunrise.wastedtime.data.factory;
 
 import com.solvedbysunrise.wastedtime.data.dto.WastedTime;
-import com.solvedbysunrise.wastedtime.data.jpa.WastedTimeEvent;
+import com.solvedbysunrise.wastedtime.data.entity.jpa.WastedTimeEvent;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.junit.Test;

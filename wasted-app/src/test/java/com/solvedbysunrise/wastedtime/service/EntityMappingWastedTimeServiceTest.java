@@ -3,7 +3,7 @@ package com.solvedbysunrise.wastedtime.service;
 import com.google.common.collect.Lists;
 import com.solvedbysunrise.wastedtime.data.dao.WastedTimeDao;
 import com.solvedbysunrise.wastedtime.data.dto.WastedTime;
-import com.solvedbysunrise.wastedtime.data.jpa.WastedTimeEvent;
+import com.solvedbysunrise.wastedtime.data.entity.jpa.WastedTimeEvent;
 import com.solvedbysunrise.wastedtime.data.factory.BeanCopyWastedTimeFactory;
 import com.solvedbysunrise.wastedtime.data.factory.WastedTimeFactory;
 import org.joda.time.DateTime;
