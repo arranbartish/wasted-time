@@ -25,6 +25,10 @@ public class TimeSliceValidator implements ConstraintValidator<CorrectTimeSlice,
 
     @Override
     public boolean isValid(final Duration value, final ConstraintValidatorContext context) {
-        return stream(timeSliceService.getTimeSlices()).parallel().filter(timeSlice -> timeSlice.getSlice().isEqual(value)).findFirst().isPresent();
+        return stream(timeSliceService.getTimeSlices())
+                .parallel()
+                .filter(timeSlice -> timeSlice.getSlice().isEqual(value))
+                .findFirst()
+                .isPresent();
     }
 }

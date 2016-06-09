@@ -9,4 +9,6 @@ public interface WastedTimeService {
     Collection<WastedTime> recordWastedTime(WastedTime wastedTime);
 
     Collection<WastedTime> getAllWastedTime();
+
+    Collection<String> getAllWastedTimeActivities();
 }

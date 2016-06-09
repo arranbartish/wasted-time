@@ -18,6 +18,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.Collection;
 
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
@@ -29,6 +30,13 @@ public class EntityMappingWastedTimeServiceTest {
     private static final String ACTIVITY = "This app";
     private static final DateTime DATE_TIME = DateTime.now();
     private static final WastedTime WASTED_TIME = new WastedTime(WHO, DURATION, ACTIVITY, DATE_TIME);
+
+
+    private static final WastedTime WASTED_TIME_OTHER = new WastedTime(WHO, DURATION, "Something else", DATE_TIME);
+    private static final WastedTime WASTED_TIME_ANOTHER = new WastedTime(WHO, DURATION, "Yeah it sucks", DATE_TIME);
+
+    private static final String[] EXPECTED_ACTIVITIES = new String[] {"Something Else", "This App", "Yeah It Sucks"};
+
 
     @Mock
     private WastedTimeDao wastedTimeDao;
@@ -59,5 +67,19 @@ public class EntityMappingWastedTimeServiceTest {
         Collection<WastedTime> wastedTimes = entityMappingWastedTimeService.getAllWastedTime();
         assertThat(wastedTimes, hasItem(WASTED_TIME));
     }
+
+    @Test
+    public void getAllWastedTimeActivities_will_return_all_activites_with_duplicates_removed() throws Exception {
+        BeanCopyWastedTimeFactory beanCopyWastedTimeFactory = new BeanCopyWastedTimeFactory();
+        when(wastedTimeDao.findAll()).thenReturn(Lists.newArrayList(
+                beanCopyWastedTimeFactory.fromDto(WASTED_TIME),
+                beanCopyWastedTimeFactory.fromDto(WASTED_TIME),
+                beanCopyWastedTimeFactory.fromDto(WASTED_TIME_OTHER),
+                beanCopyWastedTimeFactory.fromDto(WASTED_TIME_ANOTHER)
+                ));
+        Collection<String> crapActivities = entityMappingWastedTimeService.getAllWastedTimeActivities();
+        assertThat(crapActivities, hasItems(EXPECTED_ACTIVITIES));
+    }
+
 
 }

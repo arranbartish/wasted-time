@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import static java.util.stream.StreamSupport.stream;
+import static org.apache.commons.lang3.text.WordUtils.capitalizeFully;
 
 @Transactional
 @Service
@@ -39,6 +40,15 @@ public class EntityMappingWastedTimeService implements WastedTimeService {
     public Collection<WastedTime> getAllWastedTime() {
         return stream(wastedTimeDao.findAll().spliterator(), NON_PARALLEL)
                 .map(wastedTimeFactory::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Collection<String> getAllWastedTimeActivities() {
+        return stream(wastedTimeDao.findAll().spliterator(), NON_PARALLEL)
+                .map(wastedTimeEvent -> capitalizeFully(wastedTimeEvent.getActivity()))
+                .distinct()
+                .sorted()
                 .collect(Collectors.toList());
     }
 }
