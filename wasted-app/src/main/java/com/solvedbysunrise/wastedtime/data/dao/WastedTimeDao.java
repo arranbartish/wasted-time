@@ -5,6 +5,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface WastedTimeDao extends PagingAndSortingRepository<WastedTimeEvent, String> {
+public interface WastedTimeDao extends PagingAndSortingRepository<WastedTimeEvent, Long> {
 
 }

@@ -13,7 +13,7 @@ public class WastedTimeEvent extends RefelctiveBean {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private String id;
+    private Long id;
 
     private String who;
 
@@ -23,11 +23,11 @@ public class WastedTimeEvent extends RefelctiveBean {
 
     private Timestamp date;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
