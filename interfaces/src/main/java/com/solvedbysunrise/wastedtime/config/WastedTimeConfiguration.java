@@ -12,6 +12,10 @@ public interface WastedTimeConfiguration {
 
     String testValue();
 
+    Integer totalDurationInHours();
+
+    Integer intervalInMinutes();
+
     Collection<Pair<String, String>> config();
 
 }

@@ -1,7 +1,7 @@
 package com.solvedbysunrise.wastedtime;
 
 import com.solvedbysunrise.wastedtime.config.TestConfiguration;
-import com.solvedbysunrise.wastedtime.dto.Hello;
+import com.solvedbysunrise.wastedtime.data.dto.Hello;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

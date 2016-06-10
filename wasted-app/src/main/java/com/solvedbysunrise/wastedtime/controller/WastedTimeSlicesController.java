@@ -1,6 +1,8 @@
 package com.solvedbysunrise.wastedtime.controller;
 
+import com.solvedbysunrise.wastedtime.data.dto.TimeSlice;
 import com.solvedbysunrise.wastedtime.data.dto.WastedTime;
+import com.solvedbysunrise.wastedtime.service.TimeSliceService;
 import com.solvedbysunrise.wastedtime.service.WastedTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,30 +17,20 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-@RequestMapping(value = "/wasted",
+@RequestMapping(value = "/time-slices",
         //consumes = APPLICATION_JSON_UTF8_VALUE,
         produces = APPLICATION_JSON_UTF8_VALUE)
-public class WastedController {
+public class WastedTimeSlicesController {
 
-    private final WastedTimeService wastedTimeService;
+    private final TimeSliceService timeSliceService;
 
     @Autowired
-    public WastedController(final WastedTimeService wastedTimeService) {
-        this.wastedTimeService = wastedTimeService;
-    }
-
-    @RequestMapping(method = POST)
-    public Collection<WastedTime> wastedTime(@Valid @RequestBody WastedTime wastedTime) {
-        return wastedTimeService.recordWastedTime(wastedTime);
+    public WastedTimeSlicesController(final TimeSliceService timeSliceService) {
+        this.timeSliceService = timeSliceService;
     }
 
     @RequestMapping(method = GET)
-    public Collection<WastedTime> wastedTime() {
-        return wastedTimeService.getAllWastedTime();
-    }
-
-    @RequestMapping(value = "/activities", method = GET)
-    public Collection<String> wastedTimeActivities() {
-        return wastedTimeService.getAllWastedTimeActivities();
+    public TimeSlice[] wastedTimeSlices() {
+        return timeSliceService.getTimeSlices();
     }
 }

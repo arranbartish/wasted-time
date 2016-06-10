@@ -5,7 +5,7 @@
 
 	<groupId>com.solvedbysunrise.wastedtime</groupId>
 	<artifactId>wastedtime-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
 	<packaging>pom</packaging>
 
 	<name>Wastedtime Parent</name>
@@ -44,11 +44,6 @@
             </dependency>
             <dependency>
                 <groupId>com.solvedbysunrise.wastedtime</groupId>
-                <artifactId>wastedtime-domain</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.solvedbysunrise.wastedtime</groupId>
                 <artifactId>wastedtime-interfaces</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -84,9 +79,9 @@
                 <version>1.3.2</version>
             </dependency>
             <dependency>
-                <groupId>net.oauth.core</groupId>
-                <artifactId>oauth-provider</artifactId>
-                <version>20100527</version>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>5.2.4.Final</version>
             </dependency>
 
             <dependency>

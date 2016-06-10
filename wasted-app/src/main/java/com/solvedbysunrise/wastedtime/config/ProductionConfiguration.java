@@ -20,6 +20,12 @@ public class ProductionConfiguration implements WastedTimeConfiguration {
     @Value("${testValue:also-did-not-work}")
     private String testValue;
 
+    @Value("${duration.wasted.in.hours:8}")
+    private Integer totalDurationInHours;
+
+    @Value("${interval.in.minutes:15}")
+    private Integer intervalInMinutes;
+
     @Override
     @Bean(name = "wastedTimeBaseUrl")
     public String wastedTimeBaseUrl() {
@@ -36,6 +42,18 @@ public class ProductionConfiguration implements WastedTimeConfiguration {
     @Bean(name = "testValue")
     public String testValue() {
         return testValue;
+    }
+
+    @Override
+    @Bean(name = "totalDurationInHours")
+    public Integer totalDurationInHours() {
+        return totalDurationInHours;
+    }
+
+    @Override
+    @Bean(name = "intervalInMinutes")
+    public Integer intervalInMinutes() {
+        return intervalInMinutes;
     }
 
     @Override

@@ -6,7 +6,10 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.client.RestTemplate;
+
+import javax.validation.Validator;
 
 @SpringBootApplication
 @EnableConfigurationProperties
@@ -27,10 +30,10 @@ public class WastedtimeApplication {
         return new RestTemplate();
     }
 
-//    @Bean
-//    public ObjectMapper objectMapper() {
-//        ObjectMapper mapper = new ObjectMapper();
-//        mapper.registerModule(new JodaModule());
-//        mapper.registerModules()
-//    }
+    @Bean
+    public Validator validator() {
+        return new LocalValidatorFactoryBean();
+    }
+
+
 }
