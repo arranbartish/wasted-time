@@ -36,4 +36,9 @@ public class WastedController {
     public Collection<WastedTime> wastedTime() {
         return wastedTimeService.getAllWastedTime();
     }
+
+    @RequestMapping(value = "/activities", method = GET)
+    public Collection<String> wastedTimeActivities() {
+        return wastedTimeService.getAllWastedTimeActivities();
+    }
 }

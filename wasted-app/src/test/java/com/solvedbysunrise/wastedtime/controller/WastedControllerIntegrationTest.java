@@ -1,5 +1,6 @@
-package com.solvedbysunrise.wastedtime;
+package com.solvedbysunrise.wastedtime.controller;
 
+import com.solvedbysunrise.wastedtime.WastedtimeApplication;
 import com.solvedbysunrise.wastedtime.config.TestConfiguration;
 import com.solvedbysunrise.wastedtime.data.dao.WastedTimeDao;
 import com.solvedbysunrise.wastedtime.data.dto.WastedTime;
@@ -39,11 +40,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {WastedtimeApplication.class, TestConfiguration.class})
 @WebIntegrationTest
-public class WastedTimeControllerIntegrationTest {
+public class WastedControllerIntegrationTest {
 
     private static final WastedTime WASTED = new WastedTime("Arran", standardMinutes(30), "Tracking time", now());
 
     private static final String WASTED_RESOURCE = "wasted";
+    private static final String WASTED_ACTIVITES_RESOURCE = "wasted/activities";
 
     @Autowired
     private RestTemplate restTemplate;
@@ -59,9 +61,12 @@ public class WastedTimeControllerIntegrationTest {
 
     private URI wastedUri;
 
+    private URI wastedActivitiesUri;
+
     @Before
     public void setup(){
         wastedUri = new UriTemplate(getFullyQualifiedUriPattern(wastedTimeBaseUrl, WASTED_RESOURCE)).expand();
+        wastedActivitiesUri = new UriTemplate(getFullyQualifiedUriPattern(wastedTimeBaseUrl, WASTED_ACTIVITES_RESOURCE)).expand();
     }
 
     @Test
@@ -115,6 +120,15 @@ public class WastedTimeControllerIntegrationTest {
         assertThat(exchange.getStatusCode(), is(OK));
     }
 
+    @Test
+    public void wasted_time_activities_will_all_be_returned_on_get() throws Exception {
+        wastedTimeService.recordWastedTime(new WastedTime("Harry", standardMinutes(15), "Something else", now()));
+        wastedTimeService.recordWastedTime(new WastedTime("Larry", standardMinutes(15), "Another thing", now()));
+
+        ResponseEntity<String[]> exchange = restTemplate.exchange(getRequestForURI(wastedActivitiesUri), String[].class);
+        assertThat(exchange.getBody(), arrayContaining("Another Thing", "Something Else"));
+    }
+
 
     @Test
     public void wasted_time_will_return_wasted_items_on_get() throws Exception {
@@ -125,9 +139,13 @@ public class WastedTimeControllerIntegrationTest {
     }
 
     private RequestEntity<WastedTime> getRequestForWastedTime() {
+        return getRequestForURI(wastedUri);
+    }
+
+    private RequestEntity<WastedTime> getRequestForURI(URI uri) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(APPLICATION_JSON_UTF8);
-        return new RequestEntity<>(headers, GET, wastedUri);
+        return new RequestEntity<>(headers, GET, uri);
     }
 
     private RequestEntity<WastedTime> postRequestForWastedTime() {

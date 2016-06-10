@@ -1,5 +1,6 @@
-package com.solvedbysunrise.wastedtime;
+package com.solvedbysunrise.wastedtime.controller;
 
+import com.solvedbysunrise.wastedtime.WastedtimeApplication;
 import com.solvedbysunrise.wastedtime.config.TestConfiguration;
 import com.solvedbysunrise.wastedtime.data.dto.TimeSlice;
 import com.solvedbysunrise.wastedtime.service.TimeSliceService;
