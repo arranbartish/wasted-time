@@ -1,2 +1,2 @@
 # !!Generated file!! - update HerokuProcfile.template
-web: java -Ddatasource.url=$JDBC_DATABASE_URL -Ddatasource.driverClassName=org.postgresql.Driver -Dserver.port=$PORT -jar  wasted-app/target/app-wastedtime-0.0.3.jar
+web: java -Dspring.jpa.hibernate.ddl-auto=create-drop -Dspring.datasource.url=$JDBC_DATABASE_URL -Dspring.datasource.driverClassName=org.postgresql.Driver -Dserver.port=$PORT -jar wasted-app/target/app-wastedtime-0.0.4.jar
