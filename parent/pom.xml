@@ -5,7 +5,7 @@
 
 	<groupId>com.solvedbysunrise.wastedtime</groupId>
 	<artifactId>wastedtime-parent</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 	<packaging>pom</packaging>
 
 	<name>Wastedtime Parent</name>
@@ -56,6 +56,11 @@
                 <groupId>com.solvedbysunrise.wastedtime</groupId>
                 <artifactId>wastedtime-app</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>9.4.1208</version>
             </dependency>
 
             <dependency>

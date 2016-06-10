@@ -1,2 +1,1 @@
-web: java -Dserver.port=$PORT -jar  wasted-app/target/app-wastedtime-[VERSION].jar
-
+web: java -Ddatasource.url=$JDBC_DATABASE_URL -Ddatasource.driverClassName=org.postgresql.Driver -Dserver.port=$PORT -jar  wasted-app/target/app-wastedtime-[VERSION].jar
