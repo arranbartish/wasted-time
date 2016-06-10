@@ -10,11 +10,16 @@ import com.solvedbysunrise.wastedtime.data.dto.serialization.DateTimeSerializer;
 import com.solvedbysunrise.wastedtime.data.dto.serialization.DurationDeserializer;
 import com.solvedbysunrise.wastedtime.data.dto.serialization.DurationSerializer;
 import com.solvedbysunrise.wastedtime.data.dto.validation.CorrectTimeSlice;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
 import javax.validation.constraints.NotNull;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.text.WordUtils.capitalizeFully;
 
 public class WastedTime extends RefelctiveBean {
 
@@ -40,7 +45,7 @@ public class WastedTime extends RefelctiveBean {
                       @JsonProperty("duration") Duration duration,
                       @JsonProperty("activity") String activity,
                       @JsonProperty("date") DateTime date) {
-        this.who = who;
+        this.who = (isBlank(who)) ? who : capitalizeFully(who);
         this.duration = duration;
         this.activity = activity;
         this.date = (date == null) ? null : new DateTime(date).withTimeAtStartOfDay();
