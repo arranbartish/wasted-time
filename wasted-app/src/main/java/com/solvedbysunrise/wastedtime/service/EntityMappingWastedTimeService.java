@@ -51,4 +51,13 @@ public class EntityMappingWastedTimeService implements WastedTimeService {
                 .sorted()
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Collection<String> getEveryoneWhoHasWastedTime() {
+        return stream(wastedTimeDao.findAll().spliterator(), NON_PARALLEL)
+                .map(wastedTimeEvent -> capitalizeFully(wastedTimeEvent.getWho()))
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
+    }
 }

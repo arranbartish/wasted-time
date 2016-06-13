@@ -9,7 +9,7 @@ angular.module("WastedApp", ["ngAnimate","ui.bootstrap"])
     })
     .service("WastedTimeService", function(RequestService){
 
-        this.iHaveWastedTime = function(wastedTime) {
+        this.iHaveWastedTime = function(wastedTime, scope) {
 
             var req = {
                 method: 'POST',
@@ -26,10 +26,36 @@ angular.module("WastedApp", ["ngAnimate","ui.bootstrap"])
             );
         };
     })
+    .service("FormService", function(){
+        this.restForm = function(scope) {
+            scope.name = '';
+            scope.activity = '';
+            scope.duration = '';
+            scope.date = new Date();
+        }
+
+    })
+    .service("AliasService", function(RequestService){
+
+        this.populateTimeWasters = function(scope) {
+
+            var req = {
+                method: 'GET',
+                url: '/alias',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                }
+            };
+            RequestService.doRequest(req,
+                function(response){
+                    scope.timeWasters = response;
+                }
+            );
+        };
+    })
     .service("TimeSliceService", function(RequestService){
 
         this.populateTimeSlices = function(scope) {
-
             var req = {
                 method: 'GET',
                 url: '/time-slices',
@@ -44,9 +70,28 @@ angular.module("WastedApp", ["ngAnimate","ui.bootstrap"])
             );
         };
     })
-    .controller("WastedTime", function($scope, $http, $timeout, $log, TimeSliceService, WastedTimeService){
+    .service("ActivitiesService", function(RequestService){
+
+        this.populateActivities = function(scope) {
+            var req = {
+                method: 'GET',
+                url: '/wasted/activities',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                }
+            };
+            RequestService.doRequest(req,
+                function(response){
+                    scope.activities = response;
+                }
+            );
+        };
+    })
+    .controller("WastedTime", function($scope, $http, $timeout, $log, TimeSliceService, WastedTimeService, AliasService, ActivitiesService, FormService){
         $scope.date = new Date();
         TimeSliceService.populateTimeSlices($scope);
+        AliasService.populateTimeWasters($scope);
+        ActivitiesService.populateActivities($scope);
 
         this.submitWastedTime = function() {
             payload = {
@@ -55,7 +100,10 @@ angular.module("WastedApp", ["ngAnimate","ui.bootstrap"])
                 duration : $scope.duration.slice,
                 date : $scope.date.getTime()
             };
-            WastedTimeService.iHaveWastedTime(payload);
+            WastedTimeService.iHaveWastedTime(payload, $scope);
+            FormService.restForm($scope);
+            AliasService.populateTimeWasters($scope);
+            ActivitiesService.populateActivities($scope);
         };
     })
     .directive('wasted', function() {

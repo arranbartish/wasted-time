@@ -11,4 +11,6 @@ public interface WastedTimeService {
     Collection<WastedTime> getAllWastedTime();
 
     Collection<String> getAllWastedTimeActivities();
+
+    Collection<String> getEveryoneWhoHasWastedTime();
 }
