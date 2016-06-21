@@ -2,14 +2,23 @@ package com.solvedbysunrise.wastedtime.controller;
 
 import com.solvedbysunrise.wastedtime.data.dto.WastedTime;
 import com.solvedbysunrise.wastedtime.service.WastedTimeService;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.chrono.Chronology;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.FormatStyle;
 import java.util.Collection;
+import java.util.Locale;
 
+import static com.solvedbysunrise.wastedtime.controller.media.WastedMediaType.APPLICATION_CSV_VALUE;
+import static java.lang.String.format;
+import static java.time.chrono.Chronology.ofLocale;
+import static java.time.format.DateTimeFormatterBuilder.getLocalizedDateTimePattern;
+import static java.time.format.FormatStyle.*;
+import static java.util.Locale.CANADA;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -37,8 +46,28 @@ public class WastedController {
         return wastedTimeService.getAllWastedTime();
     }
 
+
+    @RequestMapping(method = GET,
+            produces = APPLICATION_CSV_VALUE,
+            params = "type=csv")
+    public String wastedTimeInCSVFormat(@ModelAttribute CSVFormatter CSVFormatter) {
+        StringBuilder builder = new StringBuilder();
+        org.joda.time.format.DateTimeFormatterBuilder dateTimeFormatterBuilder = new org.joda.time.format.DateTimeFormatterBuilder();
+
+        DateTimeFormatter dateTimeFormatter = dateTimeFormatterBuilder
+                .appendPattern(getLocalizedDateTimePattern(MEDIUM, null, ofLocale(CANADA), CANADA))
+                .toFormatter();
+
+        wastedTimeService.getAllWastedTime().stream()
+                .map(wastedTime -> format("%s,%s,%s,%s", wastedTime.getWho(), wastedTime.getActivity(), wastedTime.getDuration(), dateTimeFormatter.print(wastedTime.getDate())))
+                .forEach(string -> builder.append(string).append('\n'));
+        return builder.toString();
+    }
+
     @RequestMapping(value = "/activities", method = GET)
     public Collection<String> wastedTimeActivities() {
         return wastedTimeService.getAllWastedTimeActivities();
     }
+
+
 }
